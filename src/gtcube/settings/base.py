@@ -1,3 +1,4 @@
+# Added comment to test github
 """
 Django settings for gtcube project.
 
