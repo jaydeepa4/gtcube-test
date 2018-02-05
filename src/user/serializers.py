@@ -1,4 +1,4 @@
-from rest_framework.serializers import ModelSerializer, HyperlinkedIdentityField, SerializerMethodField, ValidationError, EmailField, CharField, HiddenField
+from rest_framework.serializers import ModelSerializer, HyperlinkedIdentityField, SerializerMethodField, ValidationError, EmailField, CharField, HiddenField, ImageField
 
 from django.contrib.contenttypes.models import ContentType
 
@@ -13,6 +13,8 @@ from django.core.mail import send_mail
 from django.urls import reverse
 
 from .models import UserProfile
+
+from post_office import mail
 
 
 User = get_user_model()
@@ -46,12 +48,19 @@ class UserCreateSerializer(ModelSerializer):
 		user_obj.set_password(password)
 		user_obj.save()
 		user_profile_obj = UserProfile(user = user_obj)
-		user_profile_obj.activation_code = get_random_string(length=15, allowed_chars='1234567890')
+		user_profile_obj.activation_code = get_random_string(length=6, allowed_chars='1234567890')
 		user_profile_obj.is_active = False
 		user_profile_obj.email = email
 		user_profile_obj.save()
 		url = reverse('users:activate',kwargs={'pk':user_profile_obj.id})
-		send_mail('Activate your account', 'Click on the link to activate your account :'+url+'/'+'?activation_code='+user_profile_obj.activation_code, 'jaydeepa4@gmail.com',[email], fail_silently=False)
+		#send_mail('Activate your account', 'Click on the link to activate your account :'+url+'/'+'?activation_code='+user_profile_obj.activation_code, 'jaydeepa4@gmail.com',[email], fail_silently=False)
+		mail.send(
+    		[email], # List of email addresses also accepted
+    		'jaydeepa4@gmail.com',
+    		subject='My email',
+    		message='GTCUBE Activation mail',
+    		html_message='<p>Click on the <strong>link</strong> to activate your account :'+url+'?activation_code='+user_profile_obj.activation_code,
+		)
 		return validated_data
 
 class UserActivateSerializer(ModelSerializer):
@@ -77,10 +86,28 @@ class UserActivateSerializer(ModelSerializer):
 		else:
 			return 0
 
+class UserDetailSerializer(ModelSerializer):
+	class Meta:
+		model = UserProfile
+		fields = [
+			'id',
+			'email',
+			'activation_code',
+			'is_active'
+			]
 
 
-	token = CharField(allow_blank = True, read_only=True)
-	username=CharField()
+class UserProfileSerializer(ModelSerializer):
+	display_image = ImageField(max_length=None, use_url=True,required=False)
+	class Meta:
+		model = UserProfile
+		fields = [
+			'email',
+			'phone',
+			'country',
+			'display_image'
+		]
+
 
 
 class UserLoginSerializer(ModelSerializer):

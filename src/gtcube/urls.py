@@ -18,10 +18,14 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 
+from django.conf.urls.static import static
+from django.conf import settings
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^user/', include('user.urls', namespace='users')),
+    url(r'^seller/', include('seller.urls', namespace='sellers')),
+    url(r'^public/', include('public.urls', namespace='public')),
    
-]
+]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

@@ -1,6 +1,6 @@
-from rest_framework.generics import ListAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView, CreateAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView, CreateAPIView, RetrieveUpdateAPIView
 
-from .serializers import UserCreateSerializer, UserActivateSerializer, UserLoginSerializer
+from .serializers import UserCreateSerializer, UserActivateSerializer, UserLoginSerializer, UserProfileSerializer, UserDetailSerializer
 #, UserLoginSerializer
 
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly
@@ -23,6 +23,8 @@ from rest_framework.views import APIView
 
 from user.models import UserProfile
 
+from rest_framework.parsers import MultiPartParser, FormParser
+
 User = get_user_model()
 
 # Create your views here.
@@ -30,10 +32,13 @@ User = get_user_model()
 class UserCreateAPIView(CreateAPIView):
 	serializer_class = UserCreateSerializer
 	queryset = User.objects.all()
+	permission_classes = [AllowAny]
 
 class UserActivateAPIView(RetrieveAPIView):
 	serializer_class = UserActivateSerializer
 	queryset = UserProfile.objects.all()
+	permission_classes = [AllowAny]
+	
 
 
 class UserLoginAPIView(APIView):
@@ -50,4 +55,14 @@ class UserLoginAPIView(APIView):
 		return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)	
 
 
+class UserProfileAPIView(RetrieveUpdateAPIView):
+	serializer_class = UserProfileSerializer
+	queryset = UserProfile.objects.all()
+	parser_classes = (MultiPartParser, FormParser,)
 
+
+class UserDetailAPIView(RetrieveAPIView):
+	serializer_class = UserDetailSerializer
+	queryset = UserProfile.objects.all()
+	lookup_field = 'email'
+	permission_classes = [AllowAny]

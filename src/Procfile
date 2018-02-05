@@ -1,0 +1,3 @@
+web: gunicorn gtcube.wsgi
+
+worker: python worker.py

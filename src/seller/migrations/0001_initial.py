@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='UserProfile',
+            name='SellerProfile',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('email', models.EmailField(max_length=254)),
@@ -25,8 +25,8 @@ class Migration(migrations.Migration):
                 ('is_active', models.BooleanField()),
                 ('phone', models.CharField(blank=True, default='', max_length=250)),
                 ('country', models.CharField(blank=True, default='', max_length=250)),
-                ('display_image', models.ImageField(default='users/none/no-img.jpg', upload_to='users/')),
-                ('user', models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('display_image', models.ImageField(default='sellers/none/no-img.jpg', upload_to='sellers/')),
+                ('seller', models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'ordering': ['-id'],
