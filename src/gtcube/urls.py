@@ -18,8 +18,9 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 
-from django.conf.urls.static import static
 from django.conf import settings
+
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 
 urlpatterns = [
@@ -27,5 +28,8 @@ urlpatterns = [
     url(r'^user/', include('user.urls', namespace='users')),
     url(r'^seller/', include('seller.urls', namespace='sellers')),
     url(r'^public/', include('public.urls', namespace='public')),
+    url(r'^question/', include('question.urls', namespace='question')),
    
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+
+urlpatterns += staticfiles_urlpatterns()

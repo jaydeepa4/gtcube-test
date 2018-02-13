@@ -1,0 +1,780 @@
+{% load static %}
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]> <html class="lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]> <html class="lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Update Question Category</title>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <!-- or -->
+  <link rel="stylesheet" href="{% static '/js/easy-autocomplete.min.css' %}">
+
+
+  <!-- Font links here -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Arimo" rel="stylesheet">  
+<style>
+/*blue-4cdef5
+green-a4d555
+blue-grey -424a5d
+
+sky blue-Dashgum - 68dff0*/
+
+/* 1. Green- 4abdac
+      Red - fc4a1a
+      Orange- F7b733
+      grey - DFDCe3
+    */
+
+
+
+/*----------------------------------------------CSS for nav bar -----------------------------------------------*/   
+
+nav{
+  /*background-color:#4abdac;*/
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#77c9d4+0,77c9d4+0,57bc90+100 */
+background: #57bc90; /* Old browsers */
+background: -moz-linear-gradient(-45deg, ##77cad5 0%, #77cad5 0%, #57bc90 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(-45deg, #77cad5 0%,#77cad5 0%,#57bc90 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(135deg, #77cad5 0%,#77cad5 0%,#57bc90 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#77cad5', endColorstr='#57bc90',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+nav ul li.active{
+  background-color:#77cad5;
+}
+
+nav ul li:hover{
+   background-color:#77cad5;
+}
+
+nav ul li a:hover{
+  background-color:#77cad5;
+  opacity:1;
+  color:white;
+ /* border-bottom:4px solid #57bc90;*/
+}
+
+.brand-logo{
+  margin-left:10px;
+  margin-top:2px;
+}
+
+
+/*--------------*Mobile nav bar code----------------------------*/
+
+.side-nav{
+  /*background-color:#4abdac;*/
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#77c9d4+0,77c9d4+0,57bc90+100 */
+background: #57bc90; /* Old browsers */
+background: -moz-linear-gradient(-45deg, #77c9d4 0%, #77c9d4 0%, #57bc90 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(-45deg, #77c9d4 0%,#77c9d4 0%,#57bc90 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(135deg, #77c9d4 0%,#77c9d4 0%,#57bc90 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#77c9d4', endColorstr='#57bc90',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+.side-nav a>li{
+  color:white;
+}
+
+
+/*------------------------------------------------CSS for side nav bar----------------------------------------------------*/
+
+
+#sidebar{
+  color:#77cad5;
+  background-color:white;
+}
+
+.sidebaritem:hover{
+   background-color:#77c9d4/*68dff0*/;
+   color:white;
+   transition: all .35s ease-in;
+  /*background-position: 0 0;*/
+}
+
+.sidebaritem{
+  padding:15px 30px;
+  cursor:pointer;
+  border-bottom: 1px dotted #77cad5;
+}
+
+
+ #display_image img{
+    display:block;
+    margin: 0 auto;
+ }
+
+ #display_name{
+  padding:15px 5px;
+  text-align:center;
+  border-bottom: 1px dotted #77cad5;
+  /*border-bottom: 1px solid grey*/
+ }
+
+.verticalalign{
+  vertical-align: middle;
+}
+/*------------------------------------------------CSS for main content----------------------------------------------------*/
+  .title{
+    color:#77c9d4;
+    text-align:center;
+  }
+
+  .question_card{
+    border-left:15px solid orange;
+  }
+
+  .drop_label{
+    font-size:125%;
+    color:#77c9d4;
+    text-align:center;
+  }
+  .category_title,.name_title,.topic_title,.section_title{
+    color:#77c9d4;
+    text-align:center;
+  }
+
+  #add_tag{
+    text-align:center;
+  }
+
+
+/*------------------------------------------------CSS for footer----------------------------------------------------*/
+
+.page-footer{
+  background-color:#66b9bf;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#77c9d4+0,77c9d4+0,57bc90+100 */
+background: #57bc90; /* Old browsers */
+background: -moz-linear-gradient(-45deg, #57bc90 0%, #57bc90 0%, #77c9d4 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(-45deg, #57bc90 0%,#57bc90 0%,#77c9d4 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(135deg, #57bc90 0%,#57bc90 0%,#77c9d4 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#77c9d4', endColorstr='#57bc90',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+.row{
+  margin-bottom:0px;
+}
+
+
+/*------------------------------------------------CSS for body, main ----------------------------------------------------*/
+ body {
+     display: flex;
+     min-height: 100vh;
+     flex-direction: column;
+     font-family: 'Arimo',sans-serif;
+ }
+ main {
+     flex: 1 0 auto;
+ }
+
+
+
+</style>
+
+  <!-- Compiled and minified JavaScript -->
+  
+  <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>    
+  <script src="{% static '/js/jquery.easy-autocomplete.min.js' %}">></script>
+  <script src="{% static '/js/nicEdit.js' %}">></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+  <!-- <link rel="stylesheet" href="css/style.css"> -->
+  <!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.17.0/axios.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.transit/0.9.12/jquery.transit.min.js"></script>
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+
+<body>
+  <!-- Header -->
+  
+   <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo"><!-- <img src='../logo.png' width='60vh'> --></a>
+      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li class=''><a href="profile.html">Profile</a></li>
+        <li><a href="courses.html">Available Courses</a></li>
+        <li><a href="coursedetail.html">Your Courses</a></li>
+        <li><a href="logout.html">Logout</a></li>
+      </ul>
+
+       <ul class="side-nav" id="mobile-demo">
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="courses.html">Available Courses</a></li>
+        <li><a href="coursedetail.html">Your Courses</a></li>
+        <li><a href="logout.html">Logout</a></li>
+        <li><a class='back' href="">Back</a></li>
+      </ul>
+    </div>
+  </nav>
+  <!-- Header ends here -->
+  <!-- Page content starts here -->
+  <main>
+    <div class='row'>
+    <!-- Side Nav Bar -->
+    <div class="col s12 m2 l2" id='sidebar'>
+      <div class='inside_sidebar'>
+        <ul>
+
+          <li id='display_image' class=''><!-- <img src="../avatar.jpg" width='50%' alt="" class="circle responsive-img"> --></li>
+          <li id='display_name' class=''>Welcome Seller</li>
+          <li id='item2' class='sidebaritem'> <i class="tiny material-icons verticalalign">developer_board</i>&nbsp;&nbsp;<span class='verticalalign'>Your News</span></li>
+          <li id='item3' class='sidebaritem'> <i class="tiny material-icons verticalalign">import_contacts</i>&nbsp;&nbsp;<span class='verticalalign'>Your Courses</span></li>
+           <li id='item4' class='sidebaritem'> <i class="tiny material-icons verticalalign">account_circle</i>&nbsp;&nbsp;<span class='verticalalign'>Your Profile</span></li>
+           <li id='item5' class='sidebaritem'> <i class="tiny material-icons verticalalign">fingerprint</i>&nbsp;&nbsp;<span class='verticalalign'>Your Password</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Side Nav Bar Ends here -->
+        
+    <!-- Main Content starts here-->
+      <div class="col s12 m10 l10" id='maincontent'>
+      <!-- Main text starts here -->
+      <div id='main_text'>
+        <div class='row'>
+          <div class='col s12 m12 l12' id='section_title'>
+            <h5 class='title'>Create a new Question</h5>
+          </div>
+          <div class='col s12 m12 l12' id='question_creation_form'>
+            <!-- 1. Question Type - MCQ, FIB etc.. -->
+            <div class="input-field col s12 m12 l12 question_card question_type z-depth-2" style='padding:2vmax;'> 
+            </div>
+            <!-- 2. Tags - MBA Entrance -> CAT - > QA -> Algebra  etc.. -->
+            <div class="input-field col s12 m12 l12 question_card question_tags z-depth-2" style='padding:2vmax;'>
+              <div class='col s12 m12 l12 drop_label'>Add required tags for question:</div>
+              <div class="input-field col s12 m3 l3 tags_category">
+                <div class='category_title'>Exam Category:</div>
+                <div class='category_input'></div>
+              </div>
+              <div class="input-field col s12 m3 l3 tags_name">
+                <div class='name_title'>Exam Name:</div>
+                <div class='name_input'></div>
+              </div>
+              <div class="input-field col s12 m3 l3 tags_section">
+                <div class='section_title'>Exam Section:</div>
+                <div class='section_input'></div>
+              </div>
+              <div class="input-field col s12 m3 l3 tags_topic">
+                <div class='topic_title'>Exam Topic:</div>
+                <div class='topic_input'></div>
+              </div>
+              <div class='col s12 m12 l12' id='add_tag'><a class="waves-effect waves-light btn add_new_section">Add Another Tag</a></div>
+
+            </div>
+            <!-- 3. Para Text card -->
+            <div class="input-field col s12 m12 l12 question_card question_para_text z-depth-2" style='padding:2vmax;'>
+            <textarea class='para_text_input' name="area1" style="width: 100%;"></textarea> 
+            </div>
+            <!-- 3. Exam Section Dropdown - QA, VA etc..  + 4. Exam Topics Input Fields-->
+            <div class='col s12 m12 l12 exam_section'>
+              <div class='col s8 m8 l8 exam_section_topic1'>
+                <div class="input-field col s8 m8 l8 exam_section1"></div>
+                <div class="col s8 m8 l8 topic_heading"><h5>Topics for section 1:</h5></div>
+                <div class="input-field col s8 m8 l8 topic_autocomplete exam_topic1"></div>
+                <div class='col s8 m8 l8'><a class="waves-effect waves-light btn add_topic_button" id='add_topic_button1'>Add Topic</a></div>
+              </div>
+              <div class='col s4 m4 l4 add_more_section'><a class="waves-effect waves-light btn add_new_section">Add section</a></div>
+            </div>
+            <div class='col s12 m12 l12 submit_category_form'>
+              <div class='col s8 m8 l8'><a class="waves-effect waves-light btn" id='submit_form'>Submit data</a></div>
+            </div>
+            <div id='category_form_submit_status'></div>
+          </div>
+        </div>
+      </div>
+    <!-- Main text ends here -->
+  </div>
+      <!-- Main Content ends here-->
+    </div>
+  </main>
+<!-- Footer starts here -->
+     <footer class="page-footer">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text">Footer Content</h5>
+                <div id='check_input'></div>
+                <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+              </div>
+              <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Links</h5>
+                <ul>
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2014 Copyright Text
+            <a class="grey-text text-lighten-4 right" href="#!"></a>
+            </div>
+          </div>
+
+        </footer>
+  <!-- Footer ends here -->
+
+</body>
+<script>
+//------------------------------------------Global Variables declaration
+var user_id = ''
+var user_details = ''
+var formData =  new FormData();
+ var category_master, question_master = [], section_master = [], topic_master = []
+ var tags_counter = 1
+
+$(document).ready(function(){
+//Code for Nav Bar:
+$(".button-collapse").sideNav();
+
+$('#mobile-demo .back').click(function(){
+  $('.button-collapse').sideNav('hide');
+})
+
+
+//--------------------------------------------Code for side nav bar:
+//To adjust height of side navbar 
+adjustHeight()
+
+$(window).resize(function(){
+  //To adjust height of side navbar 
+  adjustHeight()
+});
+
+$(window).scroll(function(){
+  if($('#sidebar').width() != $('#maincontent').width()){
+    //It means screen is not on small mode and hence fix side bar
+    fixSidebar()
+  }
+});
+
+function adjustHeight(){
+  if($('#sidebar').width() <= $('#maincontent').width()-1){
+    //Sidebar is smaller than maincontent and hence its not on small mode
+    if($('#sidebar').height()<=$('#maincontent').height()){
+      //Sidebar height needs to be set equal to maincontent
+      $('#sidebar').css('min-height',$('#maincontent').height())
+    }else{
+      //Sidebar is taller than main content and need to ensure that both occupy full space with footer sticking to base
+       $('#sidebar').css('min-height',$(document).height()-$('nav').height()-$('footer').height())
+       $('#maincontent').css('min-height',$(document).height()-$('nav').height()-$('footer').height())
+    }
+  }else{
+    //Sidebar filled entire width of the screen and hence height should be simple 100%
+    $('#sidebar').css('min-height','100%')
+  }
+  
+  }
+
+function fixSidebar(){
+  //Find the location of screen from top
+  var current =  $(window).scrollTop();
+  var navheight = $('nav').height()
+  if(current > navheight){
+    $('.inside_sidebar').css('margin-top',current-navheight)
+  }else{
+    $('.inside_sidebar').css('margin-top','0px')
+  }
+  
+}
+
+
+//----------------------------------------------------Code for Main content div:
+
+//1. Code for Selecting type of question
+
+var qtype_array = ['Multiple Choice Question (MCQ)', 'Fill In Blank (FIB)','Match the Following']
+add_dropdown_options(qtype_array,'.question_type','Select the type of question to be created:');
+
+
+    //Event on selecting an option in Question Type:
+$(document).on('change', '.question_type select', function(){
+   if($(this).val()){
+    //Make the border green
+    $('.question_type').css('border-left','15px solid #57bc90');
+    //Show the question tags card
+    $('.question_tags').show()
+    
+   }
+ }).change()
+
+
+//2. Code for adding question tags
+
+ //Initialization for Question_tags
+    $('.question_tags').hide()
+    fetch_category_masterlist()
+    $('#add_tag').hide()
+
+
+//Event on selecting an option in Exam Name Drop down:
+$(document).on('change', '.name_input select', function(){
+   if($(this).val()){
+    //Get the tag row number from ID:
+    var tag_number = get_id_number(this)
+    fetch_question_details(eval($(this).val())-1,tag_number,function(tag_number){
+      //Update the Exam Category Input
+      $('#select_category'+tag_number).val(eval(question_master[tag_number]['Exam_Category'])+1)
+      //Create/Update the Exam sections Input
+      section_master[tag_number] = []
+      for(i=0;i<question_master[tag_number]['Exam_Sections'].split('||').length;i++){  
+        section_master[tag_number].push(category_master['Exam_Sections'].split('||')[eval(question_master[tag_number]['Exam_Sections'].split('||')[i])])
+      }
+      if($('#select_section'+tag_number)[0]){
+        //Already exists - Just update the options inside
+        update_tags_input(section_master[tag_number],'#select_section'+tag_number)
+      }else{
+        //Next drop down doesn't exist, create a new one
+        add_tags_input(section_master[tag_number],'.section_input','','select_section',tag_number)
+      }
+    })
+    
+   }
+ }).change()
+
+//Event on selecting an option in Exam section Drop down:
+$(document).on('change', '.section_input select', function(){
+   if($(this).val()){
+    //Get the tag row number from ID:
+    var tag_number = get_id_number(this)
+    fetch_question_details(eval($('#select_name'+tag_number).val())-1,tag_number,function(tag_number){
+      //Create/Update the Exam topics Input
+      topic_master[tag_number] = []
+        for(j=0;j<question_master[tag_number]['Exam_Topics'].split('||')[eval($('#select_section'+tag_number).val())-1].split(',').length;j++){
+          topic_master[tag_number].push(category_master['Exam_Topics'].split('||')[eval(question_master[tag_number]['Exam_Topics'].split('||')[eval($('#select_section'+tag_number).val())-1].split(',')[j])])  
+        }
+      if($('#select_topic'+tag_number)[0]){
+        //Already exists - Just update the options inside
+        update_tags_input(topic_master[tag_number],'#select_topic'+tag_number)
+      }else{
+        //Next drop down doesn't exist, create a new one
+        add_tags_input(topic_master[tag_number],'.topic_input','','select_topic',tag_number)
+      }
+    })
+    
+   }
+ }).change()
+
+
+$(document).on('change', '.topic_input select', function(){
+   if($(this).val()){
+    //Get the tag row number from ID:
+    var tag_number = get_id_number(this)
+    //show add new tag button
+    $('#add_tag').show()
+    //Change the border color to green
+    $('.question_tags').css('border-left','15px solid #57bc90')
+   }
+ }).change()
+
+
+$(document).on('click', '#add_tag', function(){
+  //Hide add_tag
+  $('#add_tag').hide()
+  //Change border to orange color
+  $('.question_tags').css('border-left','15px solid orange')
+  //Increment the tag_counter
+  tags_counter += 1
+  //Add two new inputs
+  add_tags_input(category_master['Exam_Category'].split('||'),'.category_input','','select_category',tags_counter)
+  add_tags_input(category_master['Exam_Name'].split('||'),'.name_input','','select_name',tags_counter)
+  
+ })
+
+//.............. 3. Para Text related code
+bkLib.onDomLoaded(nicEditors.allTextAreas);
+//------------------------------------------Functions for main content div
+
+function get_id_number(selector){
+   var tag_number_array = $(selector).attr('id').split()
+    var arr = tag_number_array[0].match(/.{1,1}/g)
+    return eval(arr[arr.length-1])
+}
+
+
+function add_dropdown_options(exam_array,selector,label){
+
+  var html_string = '<div class="col s12 m12 l12 drop_label">'+label+'</div>'
+  html_string += '<select><option value="" disabled selected>Choose your option</option>'
+      for(i=0;i<exam_array.length;i++){
+        html_string +='<option value="'+(i+1)+'">'+exam_array[i]+'</option>'
+      }
+      html_string += '</select>'
+
+    $(selector).html(html_string)
+    $('select').material_select();
+}
+
+function add_tags_input(exam_array,selector, label,id,current_row){
+  var html_string = '<div class="col s12 m12 l12 drop_label">'+label+'</div>'
+  html_string += '<select id="'+id+current_row+'" '
+  if(selector.indexOf('category') != -1){
+    //Disabled for exam category
+    html_string += 'disabled><option value="" disabled selected>Choose your option</option>'
+  }else{
+    html_string += '><option value="" disabled selected>Choose your option</option>'
+  }
+  for(i=0;i<exam_array.length;i++){
+        html_string +='<option value="'+(i+1)+'">'+exam_array[i]+'</option>'
+  }
+  html_string += '</select>'
+  $(selector).append(html_string)
+  $('select').material_select();
+}
+
+function update_tags_input(exam_array,selector){
+  var html_string = '<option value="" disabled selected>Choose your option</option>'
+      for(i=0;i<exam_array.length;i++){
+        html_string +='<option value="'+(i+1)+'">'+exam_array[i]+'</option>'
+      }
+      html_string += '</select>'
+
+    $(selector).html(html_string)
+    $('select').material_select();
+}
+
+
+
+function add_topic_input(exam_array,selector,label){
+  var html_string = '<div class="input-field col s12 m12 l12"><input class="autocomplete" placeholder="Add a Topic"></div>'
+  $(selector).append("<br/>"+html_string)
+  var options= {
+    data : exam_array,
+    list: {
+      match: {
+        enabled: true
+      }
+    }
+  }
+  $('.topic_autocomplete input').easyAutocomplete(options)
+}
+
+
+function add_new_section(selector1){
+  var html_string = '<div class="col s8 m8 l8 exam_section_topic'+section_counter+'"><div class="input-field col s8 m8 l8 exam_section'+section_counter+'"></div><div class="col s8 m8 l8 topic_heading"><h5>Topics for section '+section_counter+':</h5></div><div class="input-field col s8 m8 l8 topic_autocomplete exam_topic'+section_counter+'"></div><div class="col s8 m8 l8"><a class="waves-effect waves-light btn add_topic_button" id="add_topic_button'+section_counter+'">Add Topic</a></div></div>'
+  $(selector1).append(html_string)
+  console.log('step1')
+  add_dropdown_options(category_master['Exam_Sections'].split('||'),'.exam_section'+section_counter,'Exam Section')
+  add_topic_input(category_master['Exam_Topics'].split('||'),'.exam_topic'+section_counter,'Add a Topic')
+  $('.exam_section_topic'+section_counter).css('margin-top','20px')
+  $('.exam_section_topic'+section_counter).css('border-top','2px solid grey')
+  console.log('step2')
+}
+
+
+function create_qc_form(){
+   if (category_master['Exam_Category']){
+    //1. Exam category drop down
+    add_dropdown_options(category_master['Exam_Category'].split('||'),'.exam_category','Exam Category')
+    //2. Exam Name  drop down
+    add_dropdown_options(category_master['Exam_Name'].split('||'),'.exam_name','Exam Name')
+    //3. Exam Section drop down
+    add_dropdown_options(category_master['Exam_Sections'].split('||'),'.exam_section1','Exam Section')
+    add_topic_input(category_master['Exam_Topics'].split('||'),'.exam_topic1','Add a Topic')
+
+  }
+}
+ 
+function fill_qc_form(){
+  //Exam Sections
+  for(k=1;k<question_master['Exam_Sections'].split('||').length;k++){
+    console.log('done')
+    section_counter +=1
+    add_new_section('.exam_section')
+  }
+
+  for(i=0;i<question_master['Exam_Sections'].split('||').length;i++){
+    $('.exam_section'+(i+1) +' input').val(category_master['Exam_Sections'].split('||')[eval(question_master['Exam_Sections'].split('||')[i])])
+  }
+
+  //Exam Topics
+  for(l=0;l<question_master['Exam_Topics'].split('||').length;l++){
+    for(m=0;m<question_master['Exam_Topics'].split('||')[l].split(',').length;m++){
+        if(m>0){
+          //Add Topic input and fill the value
+          add_topic_input(category_master['Exam_Topics'].split('||'),'.exam_topic'+(l+1),'Add a Topic')
+        }
+        var input_array = $('.exam_topic'+(l+1)+' input')
+          $(input_array[m]).val(category_master['Exam_Topics'].split('||')[eval(question_master['Exam_Topics'].split('||')[l].split(',')[m])])
+    }
+  }
+  
+  //Exam Topics
+  //Exam Category
+  $('.exam_category input').val(category_master['Exam_Category'].split('||')[eval(question_master['Exam_Category'])])
+  //Exam Name
+  $('.exam_name input').val(category_master['Exam_Name'].split('||')[eval(question_master['Exam_Name'])])
+  
+
+} 
+
+//------------------------------Jquery animate library JS Code - Animating the elements
+function animateDOM(className,css_initialvalue,transition_finalvalue){
+    $(className).css(css_initialvalue);
+    $(className).transition(transition_finalvalue);
+}
+
+
+animateDOM('#display_image',{'scale':'0'},{'scale':'1',duration:400,easing:'in'})
+animateDOM('.sidebaritem,#display_name',{'x':'-50px'},{'x':'0px',duration:400,easing:'in'})
+animateDOM('nav ul li',{'y':'-50px'},{'y':'00px',duration:400,easing:'in'})
+
+//---------------------------------Authorization related code:
+
+function parseJwt (token) {
+  var base64Url = token.split('.')[1];
+  var base64 = base64Url.replace('-', '+').replace('_', '/');
+  return JSON.parse(window.atob(base64));
+};
+
+//---------------------------------- Axios Calls to Database:
+
+function fetch_category_masterlist(){
+  axios({
+      method: 'get',
+      url: 'http://127.0.0.1:8000/question/qcdetail/2/',
+      }).then(function(response){
+      //Successful response
+      if(response.data){
+      //Received the data
+      console.log(response.data)
+      category_master = response.data
+      /*create_qc_form()*/
+      add_tags_input(category_master['Exam_Category'].split('||'),'.category_input','','select_category',tags_counter)
+      add_tags_input(category_master['Exam_Name'].split('||'),'.name_input','','select_name',1)
+
+      }
+      }).catch(function(error){
+      return error.response
+      });
+}
+
+function fetch_question_details(exam_name,tag_counter,callback_function){
+  axios({
+      method: 'get',
+      url: 'http://127.0.0.1:8000/question/qcnamedetail/'+exam_name+'/',
+      }).then(function(response){
+      //Successful response
+      if(response.data){
+      //Received the data
+      console.log(response.data)
+      question_master[tag_counter] = response.data 
+      callback_function(tag_counter)
+      }
+      }).catch(function(error){
+      return error.response
+      });
+}
+
+
+function getCSRFToken() {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            if (cookie.substring(0, 10) == ('csrftoken' + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(10));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+
+ //Code to collect form data and post the data
+$('#submit_form').click(function(){
+  //1. Collect the data and store the number values
+  var exam_category_number = $.inArray($('.exam_category input').val(),category_master['Exam_Category'].split('||'))
+  var exam_name_number = $.inArray($('.exam_name input').val(),category_master['Exam_Name'].split('||'))
+  var exam_section_number = []
+  for(i=1;i<=section_counter;i++){
+    exam_section_number[i-1] = $.inArray($('.exam_section'+i+' input').val(),category_master['Exam_Sections'].split('||'))
+  }
+  var exam_topic_number = []
+
+  for(i=0;i<exam_section_number.length;i++){
+    if(exam_section_number[i]>=0){
+      //Not empty section name
+      var input_array = $('.exam_topic'+(i+1)+' input')
+      var temp_array = []
+      for(j=0;j<input_array.length;j++){
+        temp_array[j] = $.inArray($(input_array[j]).val(),category_master['Exam_Topics'].split('||'))
+      }
+      exam_topic_number.push(temp_array)
+      //Delete the empty fields == -1
+      var found=0; 
+      while ((found = temp_array.indexOf(-1, found)) !== -1){
+        temp_array.splice(found, 1);
+      } 
+    }
+  }
+  //Delete the empty fields == -1
+      var found=0; 
+      while ((found = exam_section_number.indexOf(-1, found)) !== -1){
+        exam_section_number.splice(found, 1);
+      } 
+  //2.Create required strings with ||
+  var exam_section_string = ''
+  for(i=0;i<exam_section_number.length;i++){
+    if(i==exam_section_number.length-1){
+      exam_section_string += exam_section_number[i]
+    }else{
+      exam_section_string += exam_section_number[i] + '||'
+    }
+  } 
+  var exam_topic_string = ''
+  for(i=0;i<exam_topic_number.length;i++){
+    if(i==exam_topic_number.length-1){
+      exam_topic_string += exam_topic_number[i]
+    }else{
+      exam_topic_string += exam_topic_number[i] + '||'
+    }
+  } 
+
+  //3. Post request through axios to create a db entry
+
+  axios({
+  method: 'put',
+  url: 'http://127.0.0.1:8000/question/qcupdate/',
+  /*headers: { Authorization: "JWT "+localStorage.getItem('key_id') },*/
+  headers: {"X-CSRFToken": getCSRFToken()},
+  data: {
+    Exam_Category:exam_category_number,
+    Exam_Name:exam_name_number,
+    Exam_Sections:exam_section_string,
+    Exam_Topics:exam_topic_string,
+    Is_Master:0,
+    }
+  }).then(function(response){
+      //Success
+      $('#category_form_submit_status').html('<span style="color:green;">Updated Successfully!!</span>')
+      console.log(response.data)
+  }).catch(function(error){
+      //Failure
+      $('#category_form_submit_status').append('<span style="color:red;">Update Failed. Check error !!</span>')
+      console.log(error.response)
+  });
+
+
+ })
+
+})
+
+</script>
+
+</html>
